@@ -22,7 +22,7 @@ exports.specificDoc = (req, res) ->
     documentation =
       name: ""
       summary: ""
-      remakrs: ""
+      remarks: ""
       seealso: ""
 
     for m in members
@@ -30,9 +30,9 @@ exports.specificDoc = (req, res) ->
       regex = new RegExp("m:#{assembly}.#{method}.*", "i")
       if (regex.test name)
         documentation =
-          name: m["@"].name ? ""
+          name: m["@"].name
           summary: m.summary ? ""
-          remakrs: m.remarks ? ""
-          seealso: m.seealso ? ""
+          remarks: m.remarks ? ""
+          seealso: m.seealso["#"] ? ""
 
     res.render 'index', { title: "#{assembly}/#{method}", doc: documentation }
