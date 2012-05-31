@@ -31,7 +31,10 @@ app.configure 'production', ->
 
 app.get '/', routes.index
 app.get '/docs', routes.docs
-app.get '/docs/:route/:verb', routes.specificDoc
+app.get '/docs/:route/:verb', routes.docMethod
+app.get '/docs/:route', routes.docClass
 
 app.listen 3000, ->
-  console.log("Express server listening on port %d in %s mode", app.address().port, app.settings.env)
+  console.log "Express server listening on port %d in %s mode",
+    app.address().port,
+    app.settings.env

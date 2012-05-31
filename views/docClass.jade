@@ -1,0 +1,11 @@
+table
+  each method, name in doc
+    tr
+      td
+        h3
+          a(href="/docs/#{method.name}") #{method.name}
+      td
+        div #{method.summary}
+    tr
+      td(colspan=2)
+        div #{method.remarks}

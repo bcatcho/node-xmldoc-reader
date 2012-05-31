@@ -45,5 +45,5 @@ convertToHeirarchicalObj = (rawDocs) ->
 exports.load = (fileName, callback) ->
   loadXmlFile fileName, (err, rawDocs) ->
     docs = convertToHeirarchicalObj rawDocs
-    callback docs 
+    callback docs
 

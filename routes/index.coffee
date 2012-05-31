@@ -8,10 +8,17 @@ exports.index = (req, res) ->
   res.render 'index', { title: 'Express' }
   
 exports.docs = (req, res) ->
+  # TODO this should return all classes/methods like janrains
   res.render 'index', { title: 'Documentation' }
 
-exports.specificDoc = (req, res) ->
-  [route, verb] = [req.params.route.toLowerCase(), req.params.verb.toLowerCase()]
+exports.docClass = (req, res) ->
+  route = req.params.route.toLowerCase()
+  documentation = _docs?[route]
+  res.render 'docClass', { title: "#{route}", doc: documentation }
+
+exports.docMethod = (req, res) ->
+  route = req.params.route.toLowerCase()
+  verb = req.params.verb.toLowerCase()
   documentation = _docs?[route]?[verb]
-  res.render 'index', { title: "#{route}/#{verb}", doc: documentation }
+  res.render 'docMethod', { title: "#{route}/#{verb}", doc: documentation }
 
