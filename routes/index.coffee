@@ -1,24 +1,25 @@
 csharpxmlreader = require "../lib/csharpxmlreader"
 
-_docs = {}
-csharpxmlreader.load "sampleXml.xml",
-  (result) -> _docs = result
+routes = (app) ->
+  _docs = {}
+  csharpxmlreader.load "sampleXml.xml",
+    (result) -> _docs = result
 
-exports.index = (req, res) ->
-  res.render 'index', { title: 'Express' }
-  
-exports.docs = (req, res) ->
-  # TODO this should return all classes/methods like janrains
-  res.render 'index', { title: 'Documentation' }
+  app.get "/", (req, res) ->
+    res.render 'index', { title: 'Express' }
+    
+  app.get "/docs", (req, res) ->
+    res.render 'docs', { title: 'Documentation', doc: _docs }
 
-exports.docClass = (req, res) ->
-  route = req.params.route.toLowerCase()
-  documentation = _docs?[route]
-  res.render 'docClass', { title: "#{route}", doc: documentation }
+  app.get "/docs/:route", (req, res) ->
+    route = req.params.route.toLowerCase()
+    documentation = _docs?[route]
+    res.render 'docClass', { title: "#{route}", doc: documentation }
 
-exports.docMethod = (req, res) ->
-  route = req.params.route.toLowerCase()
-  verb = req.params.verb.toLowerCase()
-  documentation = _docs?[route]?[verb]
-  res.render 'docMethod', { title: "#{route}/#{verb}", doc: documentation }
+  app.get "/docs/:route/:verb", (req, res) ->
+    route = req.params.route.toLowerCase()
+    verb = req.params.verb.toLowerCase()
+    documentation = _docs?[route]?[verb]
+    res.render 'docMethod', { title: "#{route}/#{verb}", doc: documentation }
 
+module.exports = routes

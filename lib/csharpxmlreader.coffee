@@ -7,6 +7,12 @@ loadXmlFile = (fileName, callback) ->
   parser.parseString data, (err, result) ->
     callback err, result
 
+convertToHeirarchicalObj = (rawDocs) ->
+  members = rawDocs.members.member
+  documentation = {}
+  for m in members
+    docParser.parseMember m, documentation
+  documentation
 
 docParser =
   parseMemberName: (member) ->
@@ -31,19 +37,12 @@ docParser =
       [closs, verb] = [matches[1], matches[2]]
       docs[closs] ?= {}
       docs[closs][verb] = member
-      docs[closs][verb].name = "#{closs}/#{verb}"
+      docs[closs][verb].fullName = "#{closs}/#{verb}"
+      docs[closs][verb].name = "#{verb}"
 
 
-convertToHeirarchicalObj = (rawDocs) ->
-  members = rawDocs.members.member
-  documentation = {}
-  for m in members
-    docParser.parseMember m, documentation
-  documentation
-
-
+# exports
 exports.load = (fileName, callback) ->
   loadXmlFile fileName, (err, rawDocs) ->
     docs = convertToHeirarchicalObj rawDocs
     callback docs
-

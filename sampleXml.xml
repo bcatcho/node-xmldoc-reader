@@ -4,6 +4,32 @@
         <name>TestClass</name>
     </assembly>
     <members>
+        <member name="T:Blah">
+            <summary>
+            Class level summary documentation goes here.</summary>
+            <remarks>
+            Longer comments can be associated with a type or member 
+            through the remarks tag.</remarks>
+        </member>
+        <member name="M:Blah.Post(System.Int32)">
+            <summary>
+               this is all about the post shit
+            </summary>
+            <remarks>
+            Details about the interface goes here.
+            </remarks>
+        </member>
+        <member name="M:Blah.Delete(System.Int32)">
+            <summary>
+               somthing about blah.
+            </summary>
+            <param name="n">
+            Parameter n requires an integer argument.
+            </param>
+            <returns>
+            The method returns an integer.
+            </returns>
+        </member>
         <member name="T:TestClass">
             <summary>
             Class level summary documentation goes here.</summary>

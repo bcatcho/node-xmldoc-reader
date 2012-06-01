@@ -1,0 +1,11 @@
+each closs, name in doc
+  h2
+    a(href="/docs/#{name}") #{name}
+  table(style="padding-left: 20px")
+    each method, name in closs
+      tr
+        td
+          strong
+            a(href="/docs/#{method.fullName}") #{method.name}
+        td
+          div #{method.summary}
